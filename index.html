@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для Акерке ??</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Окно пароля */
+        #pass-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffdde1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: 0.5s;
+        }
+
+        .pass-card {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #ee9ca7;
+            border-radius: 10px;
+            outline: none;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .btn-pass {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* Контент сайта (скрыт изначально) */
+        #main-content {
+            display: none;
+            text-align: center;
+            color: #d63384;
+        }
+
+        .heart {
+            font-size: 80px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .message {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 20px;
+            opacity: 0;
+            transition: 1s;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: #ff4d6d;
+            pointer-events: none;
+            z-index: -1;
+            top: -10%;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Экран входа -->
+    <div id="pass-screen">
+        <div class="pass-card">
+            <h3>Вход для Акерке</h3>
+            <p>Введите секретный пароль:</p>
+            <input type="password" id="passInput" placeholder="Пароль...">
+            <button class="btn-pass" onclick="checkPass()">Войти</button>
+            <p id="error" style="color: red; font-size: 12px; display: none;">Неверно, попробуй еще раз ??</p>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <div id="main-content">
+        <div class="heart">??</div>
+        <h1>Привет, Акерке!</h1>
+        <button class="btn-pass" onclick="showSurprise()">Нажми сюда</button>
+        <div id="secretMessage" class="message">
+            Ты самая лучшая в мире! ? <br>
+            Этот маленький сайт <br>
+            создан только для тебя. ??
+        </div>
+    </div>
+
+    <script>
+        function checkPass() {
+            const pass = document.getElementById('passInput').value;
+            const correctPass = "1234"; // <--- ЗДЕСЬ МОЖЕШЬ ИЗМЕНИТЬ ПАРОЛЬ
+
+            if (pass === correctPass) {
+                document.getElementById('pass-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('pass-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                }, 500);
+            } else {
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        function showSurprise() {
+            document.getElementById('secretMessage').style.opacity = '1';
+            for (let i = 0; i < 30; i++) {
+                setTimeout(createHeart, i * 100);
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '??';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+    </script>
+</body>
+</html>
